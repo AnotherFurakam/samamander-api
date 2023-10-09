@@ -1,4 +1,4 @@
-package models
+package model
 
 type ApiResponse[T any] struct {
 	Message    string `json:"message"`
@@ -12,9 +12,9 @@ type PaginatedApiResponse[T any] struct {
 	Data       T      `json:"data"`
 	Success    bool   `json:"success"`
 	StatusCode int    `json:"statusCode"`
-	PageNumber int
-	PageSize   int
-	TotalPage  *int
-	NextPage   *int
-	PrevPage   *int
+	PageNumber int    `json:"pageNumber"`
+	PageSize   int    `json:"pageSize"`
+	TotalPage  *int   `json:"totalPage"`
+	NextPage   *int   `json:"nextPage"`
+	PrevPage   *int   `json:"prevPage"`
 }

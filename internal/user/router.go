@@ -10,12 +10,16 @@ import (
 
 func UserModuleRouter(DB *gorm.DB, group echo.Group) *echo.Group {
 
-	router := group.Group("/users")
+	router := group.Group("/user")
 
 	userService := service.NewUserService(DB)
 	userController := controller.NewUserController(userService)
 
 	router.GET("", userController.GetAll)
+	router.GET("/:idUser", userController.GetById)
+	router.POST("", userController.Create)
+	router.PUT("/:idUser", userController.Update)
+	router.DELETE("/:idUser", userController.Delete)
 
 	return router
 }
