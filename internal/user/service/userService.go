@@ -2,12 +2,9 @@ package service
 
 import (
 	"errors"
-	"strings"
-
 	"github.com/AnotherFurakam/samamander-api/internal/user/model"
 	"github.com/AnotherFurakam/samamander-api/pkg/utils"
 	"github.com/AnotherFurakam/samamander-api/pkg/validation"
-	"github.com/go-playground/validator/v10"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 )
@@ -74,20 +71,8 @@ func (u *UserService) findByEmail(email string) error {
 	return nil
 }
 
-func validateFields(user *model.User) error {
-	err := validation.Validate.Struct(user)
-	if err != nil {
-		var validationErrors strings.Builder
-		validationErrors.WriteString("Validation error: ")
-		for _, err := range err.(validator.ValidationErrors) {
-			validationErrors.WriteString(err.Field() + ": " + err.Tag() + ", ")
-		}
-		return errors.New(validationErrors.String())
-	}
-	return nil
-}
-
 // Service functions
+
 func (u *UserService) GetAll(pageNumber int, pageSize int) (users *[]model.GetUserDto, totalPage *int, nextPage *int, prevPage *int, err error) {
 
 	var userList []model.User
@@ -164,7 +149,7 @@ func (u *UserService) Create(userBody model.CreateUserDto) (*model.GetUserDto, e
 		Password: userBody.Password,
 	}
 
-	err = validateFields(&user)
+	err = validation.ValidateStruct(&user)
 	if err != nil {
 		return nil, err
 	}
@@ -217,7 +202,7 @@ func (u *UserService) Update(idUser string, userBody *model.UpdateUserDto) (*mod
 	user.Email = userBody.Email
 	user.Password = userBody.Password
 
-	err = validateFields(user)
+	err = validation.ValidateStruct(user)
 	if err != nil {
 		return nil, err
 	}

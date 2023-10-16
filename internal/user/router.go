@@ -8,7 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-func UserModuleRouter(DB *gorm.DB, group echo.Group) *echo.Group {
+func ModuleRouter(DB *gorm.DB, group echo.Group) *echo.Group {
 
 	router := group.Group("/user")
 
@@ -24,6 +24,10 @@ func UserModuleRouter(DB *gorm.DB, group echo.Group) *echo.Group {
 	return router
 }
 
-func MigrateModel(DB *gorm.DB) {
-	DB.AutoMigrate(&model.User{})
+func MigrateModel(DB *gorm.DB) error {
+	err := DB.AutoMigrate(&model.User{})
+	if err != nil {
+		return err
+	}
+	return nil
 }

@@ -6,7 +6,7 @@ import (
 
 	"github.com/AnotherFurakam/samamander-api/internal/user/model"
 	"github.com/AnotherFurakam/samamander-api/internal/user/service"
-	pkg_model "github.com/AnotherFurakam/samamander-api/pkg/model"
+	pkg_model "github.com/AnotherFurakam/samamander-api/pkg/pkgModel"
 	"github.com/labstack/echo/v4"
 )
 
@@ -18,6 +18,16 @@ func NewUserController(userService service.UserServiceInterface) *UserController
 	return &UserController{userService: userService}
 }
 
+// GetAll godoc
+//
+//	@Summary		List users
+//	@Description	get users
+//	@Tags			User
+//	@Accept			*/*
+//	@Produce		json
+//	@Param 			pageNumber	query	string	false "pageNumber"
+//	@Param 			pageSize	query	string	false "pageSize"
+//	@Router			/user [get]
 func (uc *UserController) GetAll(c echo.Context) error {
 	queryPageNumber := c.QueryParam("pageNumber")
 	queryPageSize := c.QueryParam("pageSize")
@@ -66,7 +76,7 @@ func (uc *UserController) GetAll(c echo.Context) error {
 	users, totalPage, nextPage, prevPage, err := uc.userService.GetAll(pageNumber, pageSize)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, pkg_model.ApiResponse[any]{
-			Message:    "An error ocurrerd when querying users: " + err.Error(),
+			Message:    "An error occurrerd when querying users: " + err.Error(),
 			Data:       nil,
 			Success:    false,
 			StatusCode: http.StatusInternalServerError,
@@ -86,6 +96,15 @@ func (uc *UserController) GetAll(c echo.Context) error {
 	})
 }
 
+// GetById GetAll godoc
+//
+//	@Summary		Find users
+//	@Description	get user by id
+//	@Tags			User
+//	@Accept			*/*
+//	@Produce		json
+//	@Param 			idUser	path	string	false "idUser"
+//	@Router			/user/{idUser} [get]
 func (uc *UserController) GetById(c echo.Context) error {
 	idUser := c.Param("idUser")
 
@@ -93,7 +112,7 @@ func (uc *UserController) GetById(c echo.Context) error {
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, pkg_model.ApiResponse[any]{
-			Message:    "An error ocurred while finding user: " + err.Error(),
+			Message:    "An error occurred while finding user: " + err.Error(),
 			Data:       nil,
 			Success:    false,
 			StatusCode: http.StatusInternalServerError,
@@ -110,13 +129,22 @@ func (uc *UserController) GetById(c echo.Context) error {
 	}
 
 	return c.JSON(http.StatusOK, pkg_model.ApiResponse[*model.GetUserDto]{
-		Message:    "User successfully finded",
+		Message:    "User successfully found",
 		Data:       user,
 		Success:    true,
 		StatusCode: http.StatusOK,
 	})
 }
 
+// Create User godoc
+//
+//	@Summary		Create users
+//	@Description	create user
+//	@Tags			User
+//	@Accept			json
+//	@Produce		json
+//	@Param 			userDto	body	model.CreateUserDto false "userDto"
+//	@Router			/user [post]
 func (uc *UserController) Create(c echo.Context) error {
 	var user model.CreateUserDto
 	err := c.Bind(&user)
@@ -148,6 +176,16 @@ func (uc *UserController) Create(c echo.Context) error {
 
 }
 
+// Update User godoc
+//
+//	@Summary		Update users
+//	@Description	Update user
+//	@Tags			User
+//	@Accept			json
+//	@Produce		json
+//	@Param 			idUser	path	string	false "idUser"
+//	@Param 			userDto	body	model.UpdateUserDto false "userDto"
+//	@Router			/user/{idUser} [put]
 func (uc *UserController) Update(c echo.Context) error {
 	idUser := c.Param("idUser")
 
@@ -187,12 +225,21 @@ func (uc *UserController) Update(c echo.Context) error {
 	})
 }
 
+// Delete user godoc
+//
+//	@Summary		Delete user
+//	@Description	Delete user by id
+//	@Tags			User
+//	@Accept			*/*
+//	@Produce		json
+//	@Param 			idUser	path	string	false "idUser"
+//	@Router			/user/{idUser} [delete]
 func (uc *UserController) Delete(c echo.Context) error {
 	idUser := c.Param("idUser")
 	user, err := uc.userService.Delete(idUser)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, pkg_model.ApiResponse[any]{
-			Message:    "An error ocurred while deleting user: " + err.Error(),
+			Message:    "An error occurred while deleting user: " + err.Error(),
 			Data:       nil,
 			Success:    false,
 			StatusCode: http.StatusInternalServerError,

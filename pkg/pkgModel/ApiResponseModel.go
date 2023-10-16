@@ -1,4 +1,4 @@
-package model
+package pkgModel
 
 type ApiResponse[T any] struct {
 	Message    string `json:"message"`

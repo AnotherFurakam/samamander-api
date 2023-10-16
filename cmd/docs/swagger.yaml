@@ -1,0 +1,215 @@
+basePath: /api
+definitions:
+  model.CreateUserDto:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  model.ProductDto:
+    properties:
+      description:
+        maxLength: 500
+        minLength: 10
+        type: string
+      name:
+        maxLength: 300
+        minLength: 5
+        type: string
+    required:
+    - description
+    - name
+    type: object
+  model.UpdateUserDto:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: This is a Samamander API
+  title: Samamander API
+  version: "1.0"
+paths:
+  /product:
+    get:
+      consumes:
+      - '*/*'
+      description: get products
+      parameters:
+      - description: pageNumber
+        in: query
+        name: pageNumber
+        type: string
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: List products
+      tags:
+      - Product
+    post:
+      consumes:
+      - application/json
+      description: create product
+      parameters:
+      - description: productDto
+        in: body
+        name: productDto
+        schema:
+          $ref: '#/definitions/model.ProductDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create product
+      tags:
+      - Product
+  /product/{productId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete product
+      parameters:
+      - description: productId
+        in: path
+        name: productId
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete product
+      tags:
+      - Product
+    get:
+      consumes:
+      - '*/*'
+      description: get product by id
+      parameters:
+      - description: productId
+        in: path
+        name: productId
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Find products
+      tags:
+      - Product
+    put:
+      consumes:
+      - application/json
+      description: update product
+      parameters:
+      - description: productId
+        in: path
+        name: productId
+        type: string
+      - description: productDto
+        in: body
+        name: productDto
+        schema:
+          $ref: '#/definitions/model.ProductDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update product
+      tags:
+      - Product
+  /user:
+    get:
+      consumes:
+      - '*/*'
+      description: get users
+      parameters:
+      - description: pageNumber
+        in: query
+        name: pageNumber
+        type: string
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: List users
+      tags:
+      - User
+    post:
+      consumes:
+      - application/json
+      description: create user
+      parameters:
+      - description: userDto
+        in: body
+        name: userDto
+        schema:
+          $ref: '#/definitions/model.CreateUserDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create users
+      tags:
+      - User
+  /user/{idUser}:
+    delete:
+      consumes:
+      - '*/*'
+      description: Delete user by id
+      parameters:
+      - description: idUser
+        in: path
+        name: idUser
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete user
+      tags:
+      - User
+    get:
+      consumes:
+      - '*/*'
+      description: get user by id
+      parameters:
+      - description: idUser
+        in: path
+        name: idUser
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Find users
+      tags:
+      - User
+    put:
+      consumes:
+      - application/json
+      description: Update user
+      parameters:
+      - description: idUser
+        in: path
+        name: idUser
+        type: string
+      - description: userDto
+        in: body
+        name: userDto
+        schema:
+          $ref: '#/definitions/model.UpdateUserDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update users
+      tags:
+      - User
+swagger: "2.0"

@@ -1,8 +1,8 @@
 package utils
 
-func CalculatePaginationData(pageNumber int, pageSize int, totalRecords int64) (totalPage *int, nextPage *int, prevPage *int) {
+func CalculatePaginationData(pageNumber int, pageSize int, totalOfRecords int64) (totalPage *int, nextPage *int, prevPage *int) {
 
-	totalPageValue := int((totalRecords + int64(pageSize) - 1) / int64(pageSize))
+	totalPageValue := int((totalOfRecords + int64(pageSize) - 1) / int64(pageSize))
 	totalPage = &totalPageValue
 
 	nextPageValue := pageNumber + 1
