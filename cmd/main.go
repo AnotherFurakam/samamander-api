@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	_ "github.com/AnotherFurakam/samamander-api/cmd/docs"
 	"github.com/AnotherFurakam/samamander-api/internal"
 	"github.com/AnotherFurakam/samamander-api/pkg/database"
@@ -26,5 +27,6 @@ func main() {
 
 	e.GET("/swagger/*", echoSwagger.WrapHandler)
 
+	fmt.Println("You can see the swagger page in this route: http://localhost:5000/swagger/index.html")
 	e.Logger.Info(e.Start(":5000"))
 }

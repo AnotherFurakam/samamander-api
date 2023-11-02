@@ -9,6 +9,20 @@ definitions:
       username:
         type: string
     type: object
+  model.PostDto:
+    properties:
+      body:
+        maxLength: 700
+        minLength: 5
+        type: string
+      title:
+        maxLength: 200
+        minLength: 5
+        type: string
+    required:
+    - body
+    - title
+    type: object
   model.ProductDto:
     properties:
       description:
@@ -38,6 +52,42 @@ info:
   title: Samamander API
   version: "1.0"
 paths:
+  /post:
+    get:
+      consumes:
+      - '*/*'
+      description: Get Posts
+      parameters:
+      - description: pageNumber
+        in: query
+        name: pageNumber
+        type: string
+      - description: pageSize
+        in: query
+        name: pageSize
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: List Posts
+      tags:
+      - Post
+    post:
+      consumes:
+      - application/json
+      description: Create post
+      parameters:
+      - description: postDto
+        in: body
+        name: postDto
+        schema:
+          $ref: '#/definitions/model.PostDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Create post
+      tags:
+      - Post
   /product:
     get:
       consumes:

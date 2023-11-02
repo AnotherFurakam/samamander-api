@@ -25,8 +25,8 @@ func NewUserController(userService service.UserServiceInterface) *UserController
 //	@Tags			User
 //	@Accept			*/*
 //	@Produce		json
-//	@Param 			pageNumber	query	string	false "pageNumber"
-//	@Param 			pageSize	query	string	false "pageSize"
+//	@Param			pageNumber	query	string	false	"pageNumber"
+//	@Param			pageSize	query	string	false	"pageSize"
 //	@Router			/user [get]
 func (uc *UserController) GetAll(c echo.Context) error {
 	queryPageNumber := c.QueryParam("pageNumber")
@@ -103,7 +103,7 @@ func (uc *UserController) GetAll(c echo.Context) error {
 //	@Tags			User
 //	@Accept			*/*
 //	@Produce		json
-//	@Param 			idUser	path	string	false "idUser"
+//	@Param			idUser	path	string	false	"idUser"
 //	@Router			/user/{idUser} [get]
 func (uc *UserController) GetById(c echo.Context) error {
 	idUser := c.Param("idUser")
@@ -143,7 +143,7 @@ func (uc *UserController) GetById(c echo.Context) error {
 //	@Tags			User
 //	@Accept			json
 //	@Produce		json
-//	@Param 			userDto	body	model.CreateUserDto false "userDto"
+//	@Param			userDto	body	model.CreateUserDto	false	"userDto"
 //	@Router			/user [post]
 func (uc *UserController) Create(c echo.Context) error {
 	var user model.CreateUserDto
@@ -183,8 +183,8 @@ func (uc *UserController) Create(c echo.Context) error {
 //	@Tags			User
 //	@Accept			json
 //	@Produce		json
-//	@Param 			idUser	path	string	false "idUser"
-//	@Param 			userDto	body	model.UpdateUserDto false "userDto"
+//	@Param			idUser	path	string				false	"idUser"
+//	@Param			userDto	body	model.UpdateUserDto	false	"userDto"
 //	@Router			/user/{idUser} [put]
 func (uc *UserController) Update(c echo.Context) error {
 	idUser := c.Param("idUser")
@@ -232,7 +232,7 @@ func (uc *UserController) Update(c echo.Context) error {
 //	@Tags			User
 //	@Accept			*/*
 //	@Produce		json
-//	@Param 			idUser	path	string	false "idUser"
+//	@Param			idUser	path	string	false	"idUser"
 //	@Router			/user/{idUser} [delete]
 func (uc *UserController) Delete(c echo.Context) error {
 	idUser := c.Param("idUser")

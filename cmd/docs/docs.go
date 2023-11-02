@@ -15,6 +15,60 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
+        "/post": {
+            "get": {
+                "description": "Get Posts",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "List Posts",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "pageNumber",
+                        "name": "pageNumber",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "pageSize",
+                        "name": "pageSize",
+                        "in": "query"
+                    }
+                ],
+                "responses": {}
+            },
+            "post": {
+                "description": "Create post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Create post",
+                "parameters": [
+                    {
+                        "description": "postDto",
+                        "name": "postDto",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/model.PostDto"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/product": {
             "get": {
                 "description": "get products",
@@ -288,6 +342,25 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "model.PostDto": {
+            "type": "object",
+            "required": [
+                "body",
+                "title"
+            ],
+            "properties": {
+                "body": {
+                    "type": "string",
+                    "maxLength": 700,
+                    "minLength": 5
+                },
+                "title": {
+                    "type": "string",
+                    "maxLength": 200,
+                    "minLength": 5
                 }
             }
         },

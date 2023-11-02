@@ -27,7 +27,7 @@ func NewProductController(productService service.ProductServiceInterface) *Produ
 //	@Tags			Product
 //	@Accept			*/*
 //	@Produce		json
-//	@Param 			productId	path	string	false "productId"
+//	@Param			productId	path	string	false	"productId"
 //	@Router			/product/{productId} [get]
 func (pc *ProductController) GetById(c echo.Context) error {
 	productId := c.Param("productId")
@@ -52,8 +52,8 @@ func (pc *ProductController) GetById(c echo.Context) error {
 //	@Tags			Product
 //	@Accept			*/*
 //	@Produce		json
-//	@Param 			pageNumber	query	string	false "pageNumber"
-//	@Param 			pageSize	query	string	false "pageSize"
+//	@Param			pageNumber	query	string	false	"pageNumber"
+//	@Param			pageSize	query	string	false	"pageSize"
 //	@Router			/product [get]
 func (pc *ProductController) GetAll(c echo.Context) error {
 	queryPageNumber := c.QueryParam("pageNumber")
@@ -91,7 +91,7 @@ func (pc *ProductController) GetAll(c echo.Context) error {
 //	@Tags			Product
 //	@Accept			json
 //	@Produce		json
-//	@Param 			productDto	body	model.ProductDto false "productDto"
+//	@Param			productDto	body	model.ProductDto	false	"productDto"
 //	@Router			/product [post]
 func (pc *ProductController) Create(c echo.Context) error {
 	var product model.ProductDto
@@ -115,8 +115,8 @@ func (pc *ProductController) Create(c echo.Context) error {
 //	@Tags			Product
 //	@Accept			json
 //	@Produce		json
-//	@Param 			productId	path	string	false "productId"
-//	@Param 			productDto	body	model.ProductDto false "productDto"
+//	@Param			productId	path	string				false	"productId"
+//	@Param			productDto	body	model.ProductDto	false	"productDto"
 //	@Router			/product/{productId} [put]
 func (pc *ProductController) Update(c echo.Context) error {
 	productId := c.Param("productId")
@@ -140,7 +140,7 @@ func (pc *ProductController) Update(c echo.Context) error {
 //	@Tags			Product
 //	@Accept			json
 //	@Produce		json
-//	@Param 			productId	path	string	false "productId"
+//	@Param			productId	path	string	false	"productId"
 //	@Router			/product/{productId} [delete]
 func (pc *ProductController) Delete(c echo.Context) error {
 	productId := c.Param("productId")
