@@ -19,9 +19,14 @@ definitions:
         maxLength: 200
         minLength: 5
         type: string
+      urlImage:
+        maxLength: 700
+        minLength: 5
+        type: string
     required:
     - body
     - title
+    - urlImage
     type: object
   model.ProductDto:
     properties:
@@ -33,9 +38,14 @@ definitions:
         maxLength: 300
         minLength: 5
         type: string
+      urlImage:
+        maxLength: 500
+        minLength: 10
+        type: string
     required:
     - description
     - name
+    - urlImage
     type: object
   model.UpdateUserDto:
     properties:
@@ -86,6 +96,27 @@ paths:
       - application/json
       responses: {}
       summary: Create post
+      tags:
+      - Post
+  /post/{postId}:
+    put:
+      consumes:
+      - application/json
+      description: Update post
+      parameters:
+      - description: postId
+        in: path
+        name: postId
+        type: string
+      - description: postDto
+        in: body
+        name: postDto
+        schema:
+          $ref: '#/definitions/model.PostDto'
+      produces:
+      - application/json
+      responses: {}
+      summary: Update post
       tags:
       - Post
   /product:

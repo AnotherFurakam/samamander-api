@@ -82,3 +82,32 @@ func (pc *PostController) Create(c echo.Context) error {
 
 	return utils.Created[*model.GetPostDto](c, "Post successfully created", postDto)
 }
+
+// Update Post godoc
+//
+//	@Summary		Update post
+//	@Description	Update post
+//	@Tags			Post
+//	@Accept			json
+//	@Produce		json
+//	@Param			postId	path	string	false	"postId"
+//	@Param			postDto	body	model.PostDto	false	"postDto"
+//	@Router			/post/{postId} [put]
+func (pc *PostController) Update(c echo.Context) error {
+	postId := c.Param("postId")
+	var post model.PostDto
+	err := c.Bind(&post)
+	if err != nil {
+		return utils.BadRequest(c, "Invalid post body")
+	}
+
+	postDto, err := pc.postService.Update(postId, &post)
+	if err != nil {
+		if postDto == nil {
+			return utils.NotFound(c, err.Error())
+		}
+		return utils.InternalServerError(c, err.Error())
+	}
+
+	return utils.Ok[*model.GetPostDto](c, "Post successfully updated", postDto, nil)
+}

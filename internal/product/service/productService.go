@@ -45,6 +45,7 @@ func (ps *ProductService) GetById(productId string) (productDto *model.GetProduc
 		IdProduct:   product.IdProduct,
 		Name:        product.Name,
 		Description: product.Description,
+		UrlImage:    product.UrlImage,
 		IsActive:    product.IsActive,
 		CreateAt:    product.CreateAt,
 	}
@@ -77,6 +78,7 @@ func (ps *ProductService) GetAll(pageNumber int, pageSize int) (products *[]mode
 			IdProduct:   product.IdProduct,
 			Name:        product.Name,
 			Description: product.Description,
+			UrlImage:    product.UrlImage,
 			IsActive:    product.IsActive,
 			CreateAt:    product.CreateAt,
 		})
@@ -103,6 +105,7 @@ func (ps *ProductService) Create(productBody *model.ProductDto) (productDto *mod
 
 	product := model.Product{
 		Name:        productBody.Name,
+		UrlImage:    productBody.UrlImage,
 		Description: productBody.Description,
 	}
 
@@ -115,6 +118,7 @@ func (ps *ProductService) Create(productBody *model.ProductDto) (productDto *mod
 		IdProduct:   product.IdProduct,
 		Name:        product.Name,
 		Description: product.Description,
+		UrlImage:    product.UrlImage,
 		IsActive:    product.IsActive,
 		CreateAt:    product.CreateAt,
 	}
@@ -151,6 +155,7 @@ func (ps *ProductService) Update(productId string, productBody *model.ProductDto
 
 	product := &model.Product{
 		Name:        productBody.Name,
+		UrlImage:    productBody.UrlImage,
 		Description: productBody.Description,
 	}
 	result := ps.DB.Save(product)
@@ -161,6 +166,7 @@ func (ps *ProductService) Update(productId string, productBody *model.ProductDto
 		IdProduct:   product.IdProduct,
 		Name:        product.Name,
 		Description: product.Description,
+		UrlImage:    product.UrlImage,
 		IsActive:    product.IsActive,
 		CreateAt:    product.CreateAt,
 	}
@@ -194,10 +200,10 @@ func (ps *ProductService) Delete(productId string) (productDto *model.GetProduct
 		IdProduct:   productById.IdProduct,
 		Name:        productById.Name,
 		Description: productById.Description,
+		UrlImage:    productById.UrlImage,
 		IsActive:    productById.IsActive,
 		CreateAt:    productById.CreateAt,
 	}
 
 	return productDto, nil
-
 }

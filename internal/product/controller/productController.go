@@ -1,6 +1,5 @@
 package controller
 
-import "C"
 import (
 	"github.com/AnotherFurakam/samamander-api/pkg/utils"
 	"strconv"

@@ -16,6 +16,7 @@ func ModuleRouter(DB *gorm.DB, group echo.Group) *echo.Group {
 
 	router.GET("", postController.GetAll)
 	router.POST("", postController.Create)
+	router.PUT("/:postId", postController.Update)
 
 	return router
 

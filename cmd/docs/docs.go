@@ -69,6 +69,38 @@ const docTemplate = `{
                 "responses": {}
             }
         },
+        "/post/{postId}": {
+            "put": {
+                "description": "Update post",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Post"
+                ],
+                "summary": "Update post",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "postId",
+                        "name": "postId",
+                        "in": "path"
+                    },
+                    {
+                        "description": "postDto",
+                        "name": "postDto",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#/definitions/model.PostDto"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
         "/product": {
             "get": {
                 "description": "get products",
@@ -349,7 +381,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "body",
-                "title"
+                "title",
+                "urlImage"
             ],
             "properties": {
                 "body": {
@@ -361,6 +394,11 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 200,
                     "minLength": 5
+                },
+                "urlImage": {
+                    "type": "string",
+                    "maxLength": 700,
+                    "minLength": 5
                 }
             }
         },
@@ -368,7 +406,8 @@ const docTemplate = `{
             "type": "object",
             "required": [
                 "description",
-                "name"
+                "name",
+                "urlImage"
             ],
             "properties": {
                 "description": {
@@ -380,6 +419,11 @@ const docTemplate = `{
                     "type": "string",
                     "maxLength": 300,
                     "minLength": 5
+                },
+                "urlImage": {
+                    "type": "string",
+                    "maxLength": 500,
+                    "minLength": 10
                 }
             }
         },

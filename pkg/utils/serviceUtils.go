@@ -27,6 +27,15 @@ func BadRequest(c echo.Context, message string) error {
 	})
 }
 
+func NotFound(c echo.Context, message string) error {
+	return c.JSON(http.StatusNotFound, pkgModel.ApiResponse[any]{
+		Message:    "An error occurred while searching:: " + message,
+		Data:       nil,
+		Success:    false,
+		StatusCode: http.StatusNotFound,
+	})
+}
+
 func InternalServerError(c echo.Context, message string) error {
 	return c.JSON(http.StatusInternalServerError, pkgModel.ApiResponse[any]{
 		Message:    "An error occurred while searching: " + message,
