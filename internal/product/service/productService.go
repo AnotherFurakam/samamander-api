@@ -154,6 +154,7 @@ func (ps *ProductService) Update(productId string, productBody *model.ProductDto
 	}
 
 	product := &model.Product{
+		IdProduct:   productFound.IdProduct,
 		Name:        productBody.Name,
 		UrlImage:    productBody.UrlImage,
 		Description: productBody.Description,

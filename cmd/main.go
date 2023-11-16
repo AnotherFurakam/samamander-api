@@ -7,6 +7,7 @@ import (
 	"github.com/AnotherFurakam/samamander-api/pkg/database"
 	"github.com/AnotherFurakam/samamander-api/pkg/validation"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	echoSwagger "github.com/swaggo/echo-swagger"
 )
 
@@ -22,6 +23,10 @@ func init() {
 func main() {
 
 	e := echo.New()
+
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
+	e.Use(middleware.CORS())
 
 	internal.Router(e, database.DB)
 
