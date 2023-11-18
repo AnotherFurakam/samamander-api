@@ -1,0 +1,32 @@
+name: Dockerizando la API del samamander
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        name: Check out code
+
+      - uses: mr-smithers-excellent/docker-build-push@v6
+        name: Build & push Docker image
+        with:
+          image: furapay/samamander-api
+          tags: latest
+          registry: registry-url.io
+          username: ${{ DOCKER_USERNAME }}
+          password: ${{ DOCKER_PASSWORD }}
+
+      - name: Wait for Render Deployment
+        uses: bounceapp/render-action@0.6.0
+        with:
+          render-token: ${{ RENDER_TOKEN }}
+          service-id: srv-cl7t8en6e7vc73a0ohe0
+          retries: 20
+          wait: 16000
+          sleep: 30000
