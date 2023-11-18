@@ -19,13 +19,13 @@ jobs:
           image: furapay/samamander-api
           tags: latest
           registry: registry-url.io
-          username: ${{ DOCKER_USERNAME }}
-          password: ${{ DOCKER_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Wait for Render Deployment
         uses: bounceapp/render-action@0.6.0
         with:
-          render-token: ${{ RENDER_TOKEN }}
+          render-token: ${{ secrets.RENDER_TOKEN }}
           service-id: srv-cl7t8en6e7vc73a0ohe0
           retries: 20
           wait: 16000
