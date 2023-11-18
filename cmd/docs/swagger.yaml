@@ -99,6 +99,21 @@ paths:
       tags:
       - Post
   /post/{postId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete post
+      parameters:
+      - description: postId
+        in: path
+        name: postId
+        type: string
+      produces:
+      - application/json
+      responses: {}
+      summary: Delete post
+      tags:
+      - Post
     put:
       consumes:
       - application/json

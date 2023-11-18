@@ -12,6 +12,7 @@ type PostServiceInterface interface {
 	Create(postBody *model.PostDto) (postDto *model.GetPostDto, err error)
 	GetAll(pageNumber int, pageSize int) (posts *[]model.GetPostDto, totalPage *int, nextPage *int, prevPage *int, err error)
 	Update(postId string, postBody *model.PostDto) (postDto *model.GetPostDto, err error)
+	Delete(postId string) (postDto *model.GetPostDto, err error)
 }
 
 type PostService struct {
@@ -123,6 +124,41 @@ func (ps *PostService) Update(postId string, postBody *model.PostDto) (postDto *
 		UrlImage: postFound.UrlImage,
 		IsActive: postFound.IsActive,
 		CreateAt: postFound.CreateAt,
+	}
+
+	return postDto, nil
+}
+
+func (ps *PostService) Delete(postId string) (postDto *model.GetPostDto, err error) {
+	var errorMessage string
+	err = validation.Validate.Var(postId, "required")
+	if err != nil {
+		errorMessage = "The post id is required"
+		return nil, errors.New(errorMessage)
+	}
+
+	var postById model.Post
+	err = utils.FindModelByField(ps.DB, &postById, "id_post", postId)
+	if err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
+			errorMessage = "Post not found"
+			return nil, errors.New(errorMessage)
+		}
+		return nil, err
+	}
+
+	result := ps.DB.Delete(&postById)
+	if result.Error != nil {
+		return nil, result.Error
+	}
+
+	postDto = &model.GetPostDto{
+		IdPost:   postById.IdPost,
+		Title:    postById.Title,
+		Body:     postById.Body,
+		UrlImage: postById.UrlImage,
+		IsActive: postById.IsActive,
+		CreateAt: postById.CreateAt,
 	}
 
 	return postDto, nil

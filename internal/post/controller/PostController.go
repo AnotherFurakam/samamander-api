@@ -72,7 +72,7 @@ func (pc *PostController) Create(c echo.Context) error {
 	var post model.PostDto
 	err := c.Bind(&post)
 	if err != nil {
-		return utils.BadRequest(c, "Invalid product body")
+		return utils.BadRequest(c, "Invalid post body")
 	}
 
 	postDto, err := pc.postService.Create(&post)
@@ -110,4 +110,24 @@ func (pc *PostController) Update(c echo.Context) error {
 	}
 
 	return utils.Ok[*model.GetPostDto](c, "Post successfully updated", postDto, nil)
+}
+
+// Delete Post godoc
+//
+//	@Summary		Delete post
+//	@Description	delete post
+//	@Tags			Post
+//	@Accept			json
+//	@Produce		json
+//	@Param			postId	path	string	false	"postId"
+//	@Router			/post/{postId} [delete]
+func (pc *PostController) Delete(c echo.Context) error {
+	postId := c.Param("postId")
+
+	postDto, err := pc.postService.Delete(postId)
+	if err != nil {
+		return utils.BadRequest(c, err.Error())
+	}
+
+	return utils.Ok[*model.GetPostDto](c, "Post successfully deleted", postDto, nil)
 }
